@@ -1,9 +1,10 @@
 {
   "name": "DiscordBot",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bot.js",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0"
   }
 }
