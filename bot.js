@@ -25,6 +25,19 @@ client.on("guildDelete", guild => {
   client.user.setActivity(`Estou em ${client.guilds.size} servidores`);
 });
 
-client.on("message", async message => {});
+client.on("message", async message => {
+  if (message.author.bot) return;
+  if (message.channel.type === "dm") return;
+
+  const args = message.content
+    .slice(config.prefix.length)
+    .trim()
+    .split(/ +/g);
+
+  const comando = args.shift().toLowerCase();
+  let comandojs = require(`./comandos/${comando}.js`);
+
+  if (comando === "ping") return comandojs.run(client, message, args);
+});
 
 client.login(process.env.token);
