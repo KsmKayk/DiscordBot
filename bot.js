@@ -42,7 +42,14 @@ client.on("message", async message => {
 
   if (comando === "ping")
     return require(`./comandos/${comando}.js`).run(client, message, args);
-  if (comando === "play") {
+
+  if (
+    message.content.indexOf("youtube") !== -1 &&
+    message.content.toLowerCase().startsWith("dsb!play")
+  ) {
+    let CompleteMessage = message.content.split(" ");
+    let youtubeLink = CompleteMessage[1];
+
     let voiceChannel = message.guild.channels.find(
       channel => channel.id === "656917771992694809"
     );
@@ -57,7 +64,7 @@ client.on("message", async message => {
       voiceChannel
         .join()
         .then(connection => {
-          const stream = ytdl("https://www.youtube.com/watch?v=-AjzsQ2xCV8", {
+          const stream = ytdl(youtubeLink, {
             filter: "audioonly"
           });
 

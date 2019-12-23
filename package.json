@@ -4,7 +4,7 @@
   "main": "bot.js",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "discord.js": "11.4.0",
     "dotenv": "^8.2.0",
     "ffmpeg-binaries": "3.2.2-3",
     "opusscript": "^0.0.7",
