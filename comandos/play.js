@@ -2,8 +2,7 @@ exports.run = (client, message, args, ytdl, streamOptions) => {
   let CompleteMessage = message.content.split(" ");
   let youtubeLink = CompleteMessage[1];
 
-  let voiceChannel = message.guild.channels.find(
-    channel => channel.id === "656917771992694809"
+  let voiceChannel = message.author.voiceChannel
   );
 
   if (voiceChannel == null) {
