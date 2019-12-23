@@ -45,36 +45,15 @@ client.on("message", async message => {
 
   if (
     message.content.indexOf("youtube") !== -1 &&
-    message.content.toLowerCase().startsWith("dsb!play")
+    message.content.toLowerCase().startsWith(config.prefix)
   ) {
-    let CompleteMessage = message.content.split(" ");
-    let youtubeLink = CompleteMessage[1];
-
-    let voiceChannel = message.guild.channels.find(
-      channel => channel.id === "656917771992694809"
+    return require(`./comandos/${comando}.js`).run(
+      client,
+      message,
+      args,
+      ytdl,
+      streamOptions
     );
-
-    if (voiceChannel == null) {
-      console.log("Canal não encontrado");
-    }
-
-    if (voiceChannel !== null) {
-      console.log("Canal encontrado");
-
-      voiceChannel
-        .join()
-        .then(connection => {
-          const stream = ytdl(youtubeLink, {
-            filter: "audioonly"
-          });
-
-          const DJ = connection.playStream(stream, streamOptions);
-          DJ.on("end", end => {
-            voiceChannel.leave();
-          });
-        })
-        .catch(console.error);
-    }
   }
 });
 
