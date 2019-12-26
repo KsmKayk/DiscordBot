@@ -2,8 +2,7 @@ const discord = require("discord.js");
 const client = new discord.Client();
 const config = require("./config.json");
 const ytdl = require("ytdl-core");
-
-const streamOptions = { seek: 0, volume: 1 };
+const search = require("yt-search");
 
 require("dotenv/config");
 
@@ -13,7 +12,7 @@ client.on("ready", () => {
     em ${client.channels.size} canais, 
     em ${client.guilds.size} servidores`
   );
-  client.user.setGame(`Estou em ${client.guilds.size} servidores`);
+  client.user.setActivity(`Estou em ${client.guilds.size} servidores`);
 });
 
 client.on("guildCreate", guild => {
@@ -36,23 +35,23 @@ client.on("message", async message => {
   const args = message.content
     .slice(config.prefix.length)
     .trim()
-    .split(/ +/g);
+    .split(" ");
 
   const comando = args.shift().toLowerCase();
 
-  if (comando === "ping")
+  if (comando === "ping") {
     return require(`./comandos/${comando}.js`).run(client, message, args);
+  }
+  if (comando === "play") {
+    return require(`./comandos/play.js`).run(client, message, args, ytdl);
+  }
 
-  if (
-    message.content.indexOf("youtube") !== -1 &&
-    message.content.toLowerCase().startsWith(config.prefix)
-  ) {
-    return require(`./comandos/play.js`).run(
+  if (comando === "search") {
+    return require(`./comandos/${comando}.js`).run(
       client,
       message,
       args,
-      streamOptions,
-      ytdl
+      search
     );
   }
 });

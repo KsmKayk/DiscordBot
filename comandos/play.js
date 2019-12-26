@@ -1,28 +1,23 @@
-exports.run = async (client, message, args,streamOptions,ytdl) => {
-  let CompleteMessage = message.content.split(" ");
-  let youtubeLink = CompleteMessage[1];
+  exports.run = async (client, message, args, ytdl) => {
+    let voiceChannel = message.member.voiceChannel;
 
-  let voiceChannel = message.member.voiceChannel;
+    if (voiceChannel == null) {
+      return message.channel.send("Canal não encontrado");
+    }
 
-  if (voiceChannel == null) {
-    console.log("Canal não encontrado");
-  }
+    if (!args[0]) return message.channel.send("Coloque a url");
 
-  if (voiceChannel !== null) {
-    console.log("Canal encontrado");
+    let validador = await ytdl.validateURL(args[0]);
 
-    voiceChannel
-      .join()
-      .then(connection => {
-        const stream = ytdl(youtubeLink, {
-          filter: "audioonly"
-        });
+    if (!validador)
+    return message.channel.send("Por favor coloque uma url valida");
 
-        const DJ = connection.playStream(stream, streamOptions);
-        DJ.on("end", end => {
-          voiceChannel.leave();
-        });
-      })
-      .catch(console.error);
-  }
-};
+    let info = await ytdl.getInfo(args[0]);
+    let conectar = await voiceChannel.join();
+
+    let player = await conectar.playStream(ytdl(args[0]), {
+      filter: "audioonly"
+    });
+
+    message.channel.send(`Tocando: ${info.title}`);
+  };
