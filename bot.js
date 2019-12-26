@@ -43,7 +43,13 @@ client.on("message", async message => {
     return require(`./comandos/${comando}.js`).run(client, message, args);
   }
   if (comando === "play") {
-    return require(`./comandos/play.js`).run(client, message, args, ytdl);
+    return require(`./comandos/play.js`).run(
+      client,
+      message,
+      args,
+      ytdl,
+      search
+    );
   }
 
   if (comando === "search") {
@@ -51,6 +57,7 @@ client.on("message", async message => {
       client,
       message,
       args,
+      ytdl,
       search
     );
   }

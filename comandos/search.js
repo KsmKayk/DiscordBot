@@ -1,4 +1,4 @@
-exports.run = (client, message, args, search, ytdl) => {
+exports.run = (client, message, args, ytdl, search) => {
   search(args.join(" "), function(err, res) {
     if (err) {
       return message.channel.send("error");
@@ -28,7 +28,8 @@ exports.run = (client, message, args, search, ytdl) => {
         client,
         message,
         [this.videos[parseInt(m.content) - 1].url],
-        ytdl
+        ytdl,
+        search
       );
     });
   });
