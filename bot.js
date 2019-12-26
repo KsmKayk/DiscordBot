@@ -47,14 +47,14 @@ client.on("message", async message => {
     message.content.indexOf("youtube") !== -1 &&
     message.content.toLowerCase().startsWith(config.prefix)
   ) {
-    return require(`./comandos/${comando}.js`).run(
+    return require(`./comandos/play.js`).run(
       client,
       message,
       args,
-      ytdl,
-      streamOptions
+      streamOptions,
+      ytdl
     );
   }
 });
-
+//
 client.login(process.env.token);

@@ -1,9 +1,8 @@
-exports.run = (client, message, args, ytdl, streamOptions) => {
+exports.run = async (client, message, args,streamOptions,ytdl) => {
   let CompleteMessage = message.content.split(" ");
   let youtubeLink = CompleteMessage[1];
 
-  let voiceChannel = message.author.voiceChannel
-  );
+  let voiceChannel = message.member.voiceChannel;
 
   if (voiceChannel == null) {
     console.log("Canal não encontrado");
