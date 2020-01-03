@@ -65,6 +65,10 @@ client.on("message", async message => {
   if (comando === "leave") {
     return require(`./comandos/${comando}.js`).run(client, message, args);
   }
+
+  if (comando === "help") {
+    return require(`./comandos/${comando}.js`).run(client, message, args);
+  }
 });
 //
 client.login(process.env.token);
